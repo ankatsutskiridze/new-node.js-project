@@ -3,6 +3,9 @@ import fs from "fs";
 import url from "url";
 
 const server = http.createServer((req, res) => {
+  const parsedUrl = url.parse(req.url, true);
+  console.log(parsedUrl);
+
   if (req.url === "/") {
     res.writeHead(200, {
       "Content-Type": "text/plain",
