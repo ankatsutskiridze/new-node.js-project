@@ -1,5 +1,6 @@
 import http from "http";
 import fs from "fs";
+import url from "url";
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
