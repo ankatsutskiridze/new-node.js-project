@@ -2,7 +2,7 @@ import http from "http";
 import fs from "fs";
 import url from "url";
 import slugify from "slugify";
-
+const posts = fs.readFileSync("./data.json", "utf-8");
 const str = slugify("Hello World", { lower: true });
 
 const server = http.createServer((req, res) => {
@@ -20,7 +20,6 @@ const server = http.createServer((req, res) => {
     });
     res.end("About Page");
   } else if (req.url === "/posts") {
-    const posts = fs.readFileSync("./data.json", "utf-8");
     res.writeHead(200, {
       "Content-Type": "application/json",
     });
