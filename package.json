@@ -8,5 +8,8 @@
   },
   "author": "anka tsutskiridze",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "slugify": "^1.6.6"
+  }
 }
