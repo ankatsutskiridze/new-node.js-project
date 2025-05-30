@@ -1,6 +1,9 @@
 import http from "http";
 import fs from "fs";
 import url from "url";
+import slugify from "slugify";
+
+const str = slugify("Hello World", { lower: true });
 
 const server = http.createServer((req, res) => {
   const parsedUrl = url.parse(req.url, true);
