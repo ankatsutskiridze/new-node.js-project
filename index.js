@@ -1,5 +1,4 @@
 import http from "http";
-import { url } from "inspector";
 
 const server = http.createServer((req, res) => {
   if (req.url === "/") {
