@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "First Post",
+    "content": "This is the content of the first post.",
+    "author": "Anka",
+    "createdAt": "2025-05-30T10:00:00Z"
+  },
+  {
+    "id": 2,
+    "title": "Second Post",
+    "content": "This is the content of the second post.",
+    "author": "Anka",
+    "createdAt": "2025-05-30T11:00:00Z"
+  }
+]
