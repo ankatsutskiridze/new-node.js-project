@@ -1,10 +1,18 @@
 import http from "http";
+import { url } from "inspector";
 
 const server = http.createServer((req, res) => {
-  res.writeHead(200, {
-    "Content-Type": "text/plain",
-  });
-  res.end("Hello World");
+  if (req.url === "/") {
+    res.writeHead(200, {
+      "Content-Type": "text/plain",
+    });
+    res.end("Hello World");
+  } else if (req.url === "/about") {
+    res.writeHead(200, {
+      "Content-Type": "text/plain",
+    });
+    res.end("About Page");
+  }
 });
 
 server.listen(4040, "localhost", () => {
