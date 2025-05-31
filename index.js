@@ -2,6 +2,7 @@ import http from "http";
 import fs from "fs";
 import url from "url";
 import slugify from "slugify";
+
 const posts = fs.readFileSync("./data.json", "utf-8");
 const str = slugify("Hello World", { lower: true });
 
