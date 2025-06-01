@@ -2,32 +2,22 @@ import http from "http";
 import fs from "fs";
 import url from "url";
 import slugify from "slugify";
+import express from "express";
 
-const posts = fs.readFileSync("./data.json", "utf-8");
-const str = slugify("Hello World", { lower: true });
+const app = express();
 
-const server = http.createServer((req, res) => {
-  const parsedUrl = url.parse(req.url, true);
-  console.log(parsedUrl);
-
-  if (req.url === "/") {
-    res.writeHead(200, {
-      "Content-Type": "text/plain",
-    });
-    res.end("Hello World");
-  } else if (req.url === "/about") {
-    res.writeHead(200, {
-      "Content-Type": "text/plain",
-    });
-    res.end("About Page");
-  } else if (req.url === "/posts") {
-    res.writeHead(200, {
-      "Content-Type": "application/json",
-    });
-    res.end(posts);
-  }
+app.get("/", (req, res) => {
+  res.send("Hello World");
 });
 
-server.listen(4040, "localhost", () => {
+app.get("/about", (req, res) => {
+  res.send("About Page");
+});
+
+app.get("/posts", (req, res) => {
+  res.json(JSON.parse(posts));
+});
+
+app.listen(4040, "localhost", () => {
   console.log("server is running on http://localhost:4040");
 });
