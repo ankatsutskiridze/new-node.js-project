@@ -15,7 +15,7 @@ app.get("/products", (req, res) => {
 
 app.post("/products", (req, res) => {
   const products = JSON.parse(data);
-  const newProducts = req.body;
+  const newProducts = { ...req.body, id: Date.now() };
   products.push(newProducts);
   fs.writeFileSync("./data/products.json", JSON.stringify(products));
   res.status(201).json(newProducts);
