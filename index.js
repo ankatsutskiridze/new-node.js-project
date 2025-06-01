@@ -5,9 +5,10 @@ import slugify from "slugify";
 import express from "express";
 
 const app = express();
+const data = fs.readFileSync("./data/products.json", "utf-8");
 
 app.get("/products", (req, res) => {
-  res.send("Hello World");
+  res.json(JSON.parse(data));
 });
 
 app.listen(4040, "localhost", () => {
