@@ -21,6 +21,17 @@ app.post("/products", (req, res) => {
   res.status(201).json(newProducts);
 });
 
+app.put("/products/:id", (req, res) => {
+  const products = JSON.paramse(data);
+  const productIndex = products.findIndex(
+    (p) => p.id === parseInt(req.params.id)
+  );
+  const newProducts = req.body;
+  products[productIndex] = newProducts;
+  fs.writeFileSync("./data/products.json", JSON.stringify(products));
+  res.json(newProducts);
+});
+
 app.listen(4040, "localhost", () => {
   console.log("server is running on http://localhost:4040");
 });
