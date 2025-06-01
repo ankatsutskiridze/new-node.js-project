@@ -5,10 +5,20 @@ import slugify from "slugify";
 import express from "express";
 
 const app = express();
+app.use(express.json());
+
 const data = fs.readFileSync("./data/products.json", "utf-8");
 
 app.get("/products", (req, res) => {
   res.json(JSON.parse(data));
+});
+
+app.post("/products", (req, res) => {
+  const products = JSON.parse(data);
+  const newProducts = req.body;
+  products.push(newProducts);
+  fs.writeFileSync("./data/products.json", JSON.stringify(products));
+  res.status(201).json(newProducts);
 });
 
 app.listen(4040, "localhost", () => {
