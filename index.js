@@ -40,6 +40,9 @@ app.post("/buy/:id"),
     const productId = parseInt(req.params.id);
     const products = JSON.parse(data);
     const productIndex = products.findIndex((p) => p.id === productId);
+    if (products[productIndex].stock < 1) {
+      return res.status(400).json({ message: "Product out of stock" });
+    }
     products[productIndex] = {
       ...products[productIndex],
       stock: products[productIndex].stock - 1,
