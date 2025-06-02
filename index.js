@@ -50,21 +50,23 @@ app.put("/products/:id", (req, res) => {
 //  დაუმატეთ ახალი ველი ყველა პროდუქტს – სახელად stock(აღნიშნავს პროდუქტის რაოდენობას მაგ. { "stock": 10 }).
 // შექმენით როუტი POST /buy/:id, რომელზე რექვესთის გაგზავნის შემდეგ მოცემული პროდუქტის stock 1-ით შემცირდება
 
-app.post("/buy/:id"),
-  (req, res) => {
-    const productId = parseInt(req.params.id);
-    const products = JSON.parse(data);
-    const productIndex = products.findIndex((p) => p.id === productId);
-    if (products[productIndex].stock < 1) {
-      return res.status(400).json({ message: "Product out of stock" });
-    }
-    products[productIndex] = {
-      ...products[productIndex],
-      stock: products[productIndex].stock - 1,
-    };
-    fs.writeFileSync("./data/products.json", JSON.stringify(products));
-    res.json(products[productIndex]);
+app.post("/buy/:id", (req, res) => {
+  const productId = parseInt(req.params.id);
+  const products = JSON.parse(data);
+  const productIndex = products.findIndex((p) => p.id === productId);
+
+  if (products[productIndex].stock < 1) {
+    return res.status(400).json({ message: "Product out of stock" });
+  }
+
+  products[productIndex] = {
+    ...products[productIndex],
+    stock: products[productIndex].stock - 1,
   };
+
+  fs.writeFileSync("./data/products.json", JSON.stringify(products));
+  res.json(products[productIndex]);
+});
 
 app.listen(4040, "localhost", () => {
   console.log("server is running on http://localhost:4040");
