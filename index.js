@@ -14,7 +14,11 @@ const data = fs.readFileSync("./data/products.json", "utf-8");
 
 app.post("/products", (req, res) => {
   const products = JSON.parse(data);
-  const newProducts = { ...req.body, id: Date.now() };
+  const newProducts = {
+    ...req.body,
+    id: Date.now(),
+    createdAt: new Date().toDateString(),
+  };
   if (!newProducts.name || !newProducts.price) {
     return res.status(400).json({ message: "name and price are required!" });
   }
