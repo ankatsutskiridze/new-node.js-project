@@ -13,9 +13,19 @@ app.get("/products", (req, res) => {
   res.json(JSON.parse(data));
 });
 
+// .გადამოწმება მონაცემებზე – ახალი პროდუქტის დამატებისას name და price ველები სავალდებულო უნდა იყოს.
+// თუ კლიენტმა request-ში ეს ველები არ მიუთითა გამოუტანეთ შემდეგი შეტყობინება: "name and price are required!"
+
 app.post("/products", (req, res) => {
   const products = JSON.parse(data);
   const newProducts = { ...req.body, id: Date.now() };
+  if (!newProducts.name || !newProducts.price) {
+    return res.status(400).json({ message: "name and price are required!" });
+  }
+  const existingProduct = products.find((p) => p.name === newProducts.name);
+  if (existingProduct) {
+    return res.status(400).json({ message: "Product already exists!" });
+  }
   products.push(newProducts);
   fs.writeFileSync("./data/products.json", JSON.stringify(products));
   res.status(201).json(newProducts);
@@ -32,7 +42,7 @@ app.put("/products/:id", (req, res) => {
   res.json(newProducts);
 });
 
-// 1. დაუმატეთ ახალი ველი ყველა პროდუქტს – სახელად stock(აღნიშნავს პროდუქტის რაოდენობას მაგ. { "stock": 10 }).
+//  დაუმატეთ ახალი ველი ყველა პროდუქტს – სახელად stock(აღნიშნავს პროდუქტის რაოდენობას მაგ. { "stock": 10 }).
 // შექმენით როუტი POST /buy/:id, რომელზე რექვესთის გაგზავნის შემდეგ მოცემული პროდუქტის stock 1-ით შემცირდება
 
 app.post("/buy/:id"),
