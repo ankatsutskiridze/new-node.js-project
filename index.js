@@ -8,7 +8,7 @@ import mongoose from "mongoose";
 const app = express();
 app.use(express.json());
 
-mongoose.connect("mongodb://localhost:27017/myapp", {
+mongoose.connect("mongodb://http://localhost:4040/myapp", {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
