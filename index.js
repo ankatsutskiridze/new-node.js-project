@@ -5,12 +5,14 @@ import slugify from "slugify";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import express from "express";
+import morgan from "morgan";
 import Product from "./models/productModel.js";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(morgan("dev"));
 
 mongoose
   .connect(process.env.DB_URL)
