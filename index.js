@@ -44,9 +44,6 @@ app.put("/products/:id", (req, res) => {
   res.json(newProducts);
 });
 
-//  დაუმატეთ ახალი ველი ყველა პროდუქტს – სახელად stock(აღნიშნავს პროდუქტის რაოდენობას მაგ. { "stock": 10 }).
-// შექმენით როუტი POST /buy/:id, რომელზე რექვესთის გაგზავნის შემდეგ მოცემული პროდუქტის stock 1-ით შემცირდება
-
 app.post("/buy/:id", (req, res) => {
   const productId = parseInt(req.params.id);
   const products = JSON.parse(data);
