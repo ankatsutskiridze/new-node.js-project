@@ -15,6 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/products", productsRouter);
+app.use("/users", usersRouter); // Assuming you have a usersRouter defined
 
 mongoose
   .connect(process.env.DB_URL)
