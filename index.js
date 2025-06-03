@@ -2,14 +2,14 @@ import http from "http";
 import fs from "fs";
 import url from "url";
 import slugify from "slugify";
-import express from "express";
 import mongoose from "mongoose";
+import express from "express";
 
 const app = express();
 app.use(express.json());
 
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(process.env.DB_URL)
   .then(() => {
     console.log("Database connected successfully");
   })
