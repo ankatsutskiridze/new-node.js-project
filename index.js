@@ -8,10 +8,14 @@ import mongoose from "mongoose";
 const app = express();
 app.use(express.json());
 
-mongoose.connect("mongodb://http://localhost:4040/myapp", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    console.log("Database connected successfully");
+  })
+  .catch((error) => {
+    console.error("Database connection error:", error);
+  });
 
 const productSchema = new mongoose.Schema({
   name: String,
