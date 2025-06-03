@@ -14,6 +14,10 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 
+const productRouter = express.Router();
+
+app.use("/products", productRouter);
+
 mongoose
   .connect(process.env.DB_URL)
   .then(() => {
@@ -72,10 +76,10 @@ const buyProduct = async (req, res) => {
   res.json(product);
 };
 
-app.get("/api/products", getProducts);
-app.post("/api/products", createProduct);
-app.put("/api/products/:id", updateProduct);
-app.post("/api/products/:id/buy", buyProduct);
+productRouter.get("/", getProducts);
+productRouter.post("/", createProduct);
+productRouter.put("/:id", updateProduct);
+productRouter.post("/:id/buy", buyProduct);
 
 app.listen(4040, "localhost", () => {
   console.log("server is running on http://localhost:4040");
