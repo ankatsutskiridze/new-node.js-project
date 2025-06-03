@@ -8,6 +8,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import productsRouter from "./routes/prodactsRouter.js";
+import usersRouter from "./routes/usersRouter.js"; // Assuming you have a usersRouter defined
 
 dotenv.config();
 
