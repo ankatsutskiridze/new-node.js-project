@@ -9,8 +9,6 @@ app.use(express.json());
 
 const data = fs.readFileSync("./data/products.json", "utf-8");
 
-// .გადამოწმება მონაცემებზე – ახალი პროდუქტის დამატებისას name და price ველები სავალდებულო უნდა იყოს.
-// თუ კლიენტმა request-ში ეს ველები არ მიუთითა გამოუტანეთ შემდეგი შეტყობინება: "name and price are required!"
 app.get("/products", (req, res) => {
   const Products = JSON.parse(data);
   res.json(Products);
