@@ -2,12 +2,11 @@ import http from "http";
 import fs from "fs";
 import url from "url";
 import slugify from "slugify";
+import Product from "./models/productModel.js";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
-import Product from "./models/productModel.js";
-
 import productsRouter from "./routes/prodactsRouter.js";
 
 dotenv.config();
