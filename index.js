@@ -17,15 +17,6 @@ mongoose
     console.error("Database connection error:", error);
   });
 
-const productSchema = new mongoose.Schema({
-  name: String,
-  price: Number,
-  stock: Number,
-  createdAt: { type: Date, default: Date.now },
-});
-
-const Product = mongoose.model("Product", productSchema);
-
 app.get("/products", async (req, res) => {
   const products = await Product.find();
   res.json(products);
