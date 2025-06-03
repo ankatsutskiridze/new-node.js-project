@@ -3,7 +3,10 @@ import fs from "fs";
 import url from "url";
 import slugify from "slugify";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 import express from "express";
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
