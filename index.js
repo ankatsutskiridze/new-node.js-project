@@ -21,12 +21,12 @@ mongoose
     console.error("Database connection error:", error);
   });
 
-app.get("/products", async (req, res) => {
+const getProducts = async (req, res) => {
   const products = await Product.find();
   res.json(products);
-});
+};
 
-app.post("/products", async (req, res) => {
+const createProduct = async (req, res) => {
   const newProduct = new Product({
     ...req.body,
     createdAt: new Date().toDateString(),
@@ -40,9 +40,9 @@ app.post("/products", async (req, res) => {
   }
   await newProduct.save();
   res.status(201).json(newProduct);
-});
+};
 
-app.put("/products/:id", async (req, res) => {
+const updateProduct = async (req, res) => {
   const product = await Product.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -50,9 +50,9 @@ app.put("/products/:id", async (req, res) => {
     return res.status(404).json({ message: "Product not found!" });
   }
   res.json(product);
-});
+};
 
-app.post("/buy/:id", async (req, res) => {
+const buyProduct = async (req, res) => {
   const productId = req.params.id;
   const product = await Product.findById(productId);
 
@@ -68,7 +68,12 @@ app.post("/buy/:id", async (req, res) => {
   await product.save();
 
   res.json(product);
-});
+};
+
+app.get("/api/products", getProducts);
+app.post("/api/products", createProduct);
+app.put("/api/products/:id", updateProduct);
+app.post("/api/products/:id/buy", buyProduct);
 
 app.listen(4040, "localhost", () => {
   console.log("server is running on http://localhost:4040");
