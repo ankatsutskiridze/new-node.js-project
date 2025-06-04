@@ -11,6 +11,7 @@ import productsRouter from "./routes/prodactsRouter.js";
 import usersRouter from "./routes/usersRouter.js";
 import logger from "./middlewares/logger.js";
 import maintenance from "./middlewares/mainctenance.js";
+improt express from "express";
 
 dotenv.config({ path: "./config.env" });
 const PORT = process.env.PORT || 3000;
