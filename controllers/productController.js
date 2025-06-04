@@ -1,7 +1,7 @@
 import product from "../models/productModel.js";
 
 const getProducts = async (req, res) => {
-  const products = await product.find();
+  const products = await product.find(req.query);
   res.json(products);
 };
 
@@ -11,7 +11,7 @@ const createProduct = async (req, res) => {
     id: Date.now(),
   });
 
-  newProduct.save();
+  await newProduct.save();
   res.status(201).json(newProduct);
 };
 
