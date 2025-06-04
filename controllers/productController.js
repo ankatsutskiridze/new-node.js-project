@@ -8,13 +8,11 @@ const getProducts = async (req, res) => {
 const createProduct = async (req, res) => {
   const newProduct = new product({
     ...req.body,
+    id: Date.now(),
     createdAt: new Date().toDateString(),
   });
-  const existingProduct = await product.findOne({ name: newProduct.name });
-  if (existingProduct) {
-    return res.status(400).json({ message: "Product already exists!" });
-  }
-  await newProduct.save();
+
+  newProduct.save();
   res.status(201).json(newProduct);
 };
 
