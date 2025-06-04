@@ -10,9 +10,6 @@ const createProduct = async (req, res) => {
     ...req.body,
     createdAt: new Date().toDateString(),
   });
-  if (!newProduct.name || !newProduct.price) {
-    return res.status(400).json({ message: "name and price are required!" });
-  }
   const existingProduct = await product.findOne({ name: newProduct.name });
   if (existingProduct) {
     return res.status(400).json({ message: "Product already exists!" });
