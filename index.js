@@ -10,6 +10,7 @@ import morgan from "morgan";
 import productsRouter from "./routes/prodactsRouter.js";
 import usersRouter from "./routes/usersRouter.js";
 import logger from "./middlewares/logger.js";
+import maintenance from "./middlewares/mainctenance.js";
 
 dotenv.config();
 const PORT = process.env.PORT || 3000;
@@ -17,6 +18,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(logger);
+app.use(maintenance);
 
 app.use("/products", productsRouter);
 app.use("/users", usersRouter);
