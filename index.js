@@ -11,6 +11,7 @@ import productsRouter from "./routes/prodactsRouter.js";
 import usersRouter from "./routes/usersRouter.js";
 import logger from "./middlewares/logger.js";
 import maintenance from "./middlewares/mainctenance.js";
+import rateLimit from "express-rate-limit";
 
 dotenv.config({ path: "./config.env" });
 const PORT = process.env.PORT || 3000;
@@ -19,6 +20,14 @@ app.use(express.json());
 app.use(morgan("dev"));
 app.use(logger);
 app.use(maintenance);
+
+app.use(
+  rateLimit({
+    windowMs: 15 * 60 * 1000, // 15 minutes
+    max: 100, // Limit each IP to 100 requests per windowMs
+    message: "Too many requests from this IP, please try again later.",
+  })
+);
 
 app.use("/products", productsRouter);
 app.use("/users", usersRouter);
