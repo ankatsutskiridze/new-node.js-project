@@ -19,11 +19,6 @@ app.use(morgan("dev"));
 app.use("/products", productsRouter);
 app.use("/users", usersRouter);
 
-app.use((req, res, next) => {
-  console.log(req.method, req.url, new Date().toISOString());
-  next();
-});
-
 mongoose
   .connect(process.env.DB_URL)
   .then(() => {
