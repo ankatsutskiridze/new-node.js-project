@@ -9,12 +9,14 @@ import express from "express";
 import morgan from "morgan";
 import productsRouter from "./routes/prodactsRouter.js";
 import usersRouter from "./routes/usersRouter.js";
+import logger from "./middlewares/logger.js";
 
 dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(logger);
 
 app.use("/products", productsRouter);
 app.use("/users", usersRouter);
