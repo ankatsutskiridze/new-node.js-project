@@ -8,7 +8,7 @@ import dotenv from "dotenv";
 import express from "express";
 import morgan from "morgan";
 import productsRouter from "./routes/prodactsRouter.js";
-import usersRouter from "./routes/usersRouter.js"; // Assuming you have a usersRouter defined
+import usersRouter from "./routes/usersRouter.js";
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
 app.use("/products", productsRouter);
-app.use("/users", usersRouter); // Assuming you have a usersRouter defined
+app.use("/users", usersRouter);
 
 mongoose
   .connect(process.env.DB_URL)
