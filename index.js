@@ -12,7 +12,7 @@ import usersRouter from "./routes/usersRouter.js";
 import logger from "./middlewares/logger.js";
 
 dotenv.config();
-
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(express.json());
 app.use(morgan("dev"));
@@ -30,6 +30,6 @@ mongoose
     console.error("Database connection error:", error);
   });
 
-app.listen(4040, "localhost", () => {
-  console.log("server is running on http://localhost:4040");
+app.listen(PORT, () => {
+  console.log(`server is running on http://localhost:${process.env.PORT}`);
 });
