@@ -9,7 +9,6 @@ const createProduct = async (req, res) => {
   const newProduct = new product({
     ...req.body,
     id: Date.now(),
-    createdAt: new Date().toDateString(),
   });
 
   newProduct.save();
