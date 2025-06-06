@@ -38,7 +38,13 @@ const productSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
-prodactSchema.pre();
+productSchema.pre("findOneAndDelete", async function (next) {
+  const deletedProduct = await this.model.findOne(this.getQuery());
+  if (!deletedProduct) {
+    return next(new Error("Product not found"));
+  }
+  next();
+});
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;
