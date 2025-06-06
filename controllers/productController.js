@@ -46,8 +46,18 @@ const buyProduct = async (req, res) => {
 };
 
 const getCategorieStats = async (req, res) => {
-  const categories = await product.distinct("category");
-  res.json(categories);
+  const stats = await product.aggregate([
+    {
+      $group: {
+        _id: "$category",
+        totalProducts: { $sum: 1 },
+        totalStock: { $sum: "$stock" },
+        averagePrice: { $avg: "$price" },
+      },
+    },
+  ]);
+
+  res.json(stats);
 };
 
 export {
