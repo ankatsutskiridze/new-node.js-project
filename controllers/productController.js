@@ -55,6 +55,7 @@ const getCategorieStats = async (req, res) => {
         averagePrice: { $avg: "$price" },
       },
     },
+    { sort: { totalProducts: -1 } },
   ]);
 
   res.json(stats);
