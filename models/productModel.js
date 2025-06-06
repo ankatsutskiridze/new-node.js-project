@@ -38,6 +38,7 @@ const productSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+
 productSchema.pre("findOneAndDelete", async function (next) {
   const deletedProduct = await this.model.findOne(this.getQuery());
   if (!deletedProduct) {
