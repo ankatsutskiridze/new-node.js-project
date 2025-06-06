@@ -41,10 +41,6 @@ const productSchema = new mongoose.Schema(
   }
 );
 
-productSchema.virtual("save").get(function () {
-  return this.stock > 0 ? "available" : "not available";
-});
-
 productSchema.virtual("status").get(function () {
   return this.stock > 0 ? "available" : "not available";
 });
