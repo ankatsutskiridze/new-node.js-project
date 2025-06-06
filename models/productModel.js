@@ -1,42 +1,48 @@
 import mongoose from "mongoose";
 
-const productSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    required: true,
-    unique: true,
+const productSchema = new mongoose.Schema(
+  {
+    id: {
+      type: Number,
+      required: true,
+      unique: true,
+    },
+    name: {
+      type: String,
+      required: [true, "Name is Required!"],
+    },
+    price: {
+      type: Number,
+      required: true,
+      validate: {
+        validator: (val) => val > 0,
+        message: "Price must be greater than 0",
+      },
+    },
+    description: {
+      type: String,
+      required: true,
+    },
+    stock: {
+      type: Number,
+      required: true,
+    },
+    slug: {
+      type: String,
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
   },
-  name: {
-    type: String,
-    required: true,
-  },
-  description: String,
-  price: {
-    type: String, // თუ გინდა GEL ცალკე იყოს, შეგვიძლია ობიექტადაც გავყოთ later
-    required: true,
-  },
-  category: {
-    type: String,
-    required: true,
-  },
-  inStock: {
-    type: Number,
-    default: 0,
-  },
-  rating: {
-    type: Number,
-    min: 0,
-    max: 5,
-  },
-  imageUrl: String,
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now,
-  },
+  {
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  }
+);
+
+productSchema.virtual("save").get(function () {
+  return this.stock > 0 ? "available" : "not available";
 });
 
 productSchema.pre("findOneAndDelete", async function (next) {
