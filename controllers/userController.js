@@ -1,3 +1,5 @@
+import express from "express";
+
 const getUsers = (req, res) => {
   res.json({ message: "User route is working!" });
 };
