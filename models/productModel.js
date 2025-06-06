@@ -45,6 +45,14 @@ productSchema.virtual("save").get(function () {
   return this.stock > 0 ? "available" : "not available";
 });
 
+productSchema.virtual("status").get(function () {
+  return this.stock > 0 ? "available" : "not available";
+});
+
+productSchema.virtual("priceWithinWeek").get(function () {
+  return this.price * 0.9; // Assuming a 10% discount within a week
+});
+
 productSchema.pre("findOneAndDelete", async function (next) {
   const deletedProduct = await this.model.findOne(this.getQuery());
   if (!deletedProduct) {
