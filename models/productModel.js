@@ -38,6 +38,7 @@ const productSchema = new mongoose.Schema({
     default: Date.now,
   },
 });
+prodactSchema.pre();
 
 const Product = mongoose.model("Product", productSchema);
 export default Product;
