@@ -45,4 +45,15 @@ const buyProduct = async (req, res) => {
   res.json(product);
 };
 
-export { getProducts, createProduct, updateProduct, buyProduct };
+const getCategorieStats = async (req, res) => {
+  const categories = await product.distinct("category");
+  res.json(categories);
+};
+
+export {
+  getProducts,
+  createProduct,
+  updateProduct,
+  buyProduct,
+  getCategorieStats,
+};
