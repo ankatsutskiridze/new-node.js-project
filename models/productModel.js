@@ -69,21 +69,32 @@ productSchema.pre("findOneAndDelete", async function (next) {
 productSchema.static.archived = async function (filter) {
   return this.find(filter, { archive: true });
 };
-
 productSchema.pre("findOneAndUpdate", async function (next) {
   const update = this.getUpdate();
-  if (update.stock !== undefined) {
-    const previousStock = this._update.$set
-      ? this._update.$set.stock
-      : this._update.stock;
-    if (previousStock !== undefined) {
-      await StockHistory.create({
-        productId: this._conditions._id,
-        previousStock: previousStock,
-        newStock: update.stock,
-      });
-    }
+
+  // თუ stock საერთოდ არ ახლდება, გავდივართ
+  if (!update.stock && !(update.$set && update.$set.stock)) {
+    return next();
   }
+
+  // ვპოულობთ ძველ პროდუქტს ბაზიდან
+  const product = await this.model.findOne(this.getQuery());
+
+  const newStock =
+    update.stock || (update.$set ? update.$set.stock : undefined);
+
+  // თუ stock არ შეცვლილა, გავდივართ
+  if (newStock === product.stock) {
+    return next();
+  }
+
+  // ვინახავთ stock-ის ცვლილების ისტორიას
+  await StockHistory.create({
+    productId: product._id,
+    previousStock: product.stock,
+    newStock: newStock,
+  });
+
   next();
 });
 
