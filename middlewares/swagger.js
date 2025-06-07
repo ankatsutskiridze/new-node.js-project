@@ -12,8 +12,10 @@ const swaggerOptions = {
     servers: [
       {
         url: "http://localhost:3000/",
+        description: "Development server",
       },
     ],
   },
-  apis: ["./routes/*.js"], // Path to the API docs
 };
+const specs = swaggerJSDoc(swaggerOptions);
+export default specs;
