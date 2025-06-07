@@ -2,7 +2,10 @@ import product from "../models/productModel.js";
 import filterService from "../service/filtrService.js";
 
 const getProducts = async (req, res) => {
-  const filteredProducts = filterService(product.find(), req.query);
+  const filteredProducts = filterService(
+    product.find({ archived: false }),
+    req.query
+  );
   const products = await filteredProducts;
   res.json(products);
 };
