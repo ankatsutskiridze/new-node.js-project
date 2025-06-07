@@ -6,10 +6,6 @@ const stockHistorySchema = new mongoose.Schema({
     ref: "Product", // Reference to the product
     required: true,
   },
-  changeAmount: {
-    type: Number,
-    required: true, // positive or negative change
-  },
   previousStock: {
     type: Number,
     required: true,
