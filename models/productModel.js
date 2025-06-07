@@ -60,5 +60,9 @@ productSchema.pre("findOneAndDelete", async function (next) {
   next();
 });
 
+productSchema.static.archived = async function (filter) {
+  return this.find(filter, { archive: true });
+};
+
 const Product = mongoose.model("Product", productSchema);
 export default Product;
