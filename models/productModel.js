@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import StockHistory from "./stockHistoryModel.js";
 
 const productSchema = new mongoose.Schema(
   {
