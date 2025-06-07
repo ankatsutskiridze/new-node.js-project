@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-
 const productSchema = new mongoose.Schema(
   {
     id: {
@@ -29,6 +28,10 @@ const productSchema = new mongoose.Schema(
     },
     slug: {
       type: String,
+    },
+    archive: {
+      type: Boolean,
+      default: false,
     },
     createdAt: {
       type: Date,
