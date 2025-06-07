@@ -78,6 +78,38 @@ const deleteProduct = async (req, res) => {
   }
 };
 
+const getPriceStatistics = async (req, res) => {
+  try {
+    const PriceRange = await product.aggregate;
+    [
+      $bucket({
+        groupBy: "$price",
+        boundaries: [0, 50, 100, 200, 300],
+        default: "Other",
+        output: {
+          count: { $sum: 1 },
+          max: { $max: "$price" },
+          min: { $min: "$price" },
+          avg: { $avg: "$price" },
+        },
+      }),
+      $addFields({
+        range: {
+          $switch: {
+            branches: [
+              { case: { $lt: ["$price", 50] }, then: "0-50" },
+              { case: { $lt: ["$price", 100] }, then: "50-100" },
+              { case: { $lt: ["$price", 200] }, then: "100-200" },
+              { case: { $lt: ["$price", 300] }, then: "200-300" },
+            ],
+            default: "Other", ////300+
+          },
+        },
+      }),
+    ];
+  } catch (error) {}
+};
+
 export {
   getProducts,
   createProduct,
