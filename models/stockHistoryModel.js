@@ -21,7 +21,7 @@ const stockHistorySchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // ✅ ეს აქ უნდა იყოს, ცალკე ობიექტში
+    timestamps: true,
   }
 );
 
