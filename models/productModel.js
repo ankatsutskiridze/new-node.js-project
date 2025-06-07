@@ -70,6 +70,23 @@ productSchema.static.archived = async function (filter) {
   return this.find(filter, { archive: true });
 };
 
+productSchema.pre("findOneAndUpdate", async function (next) {
+  const update = this.getUpdate();
+  if (update.stock !== undefined) {
+    const previousStock = this._update.$set
+      ? this._update.$set.stock
+      : this._update.stock;
+    if (previousStock !== undefined) {
+      await StockHistory.create({
+        productId: this._conditions._id,
+        previousStock: previousStock,
+        newStock: update.stock,
+      });
+    }
+  }
+  next();
+});
+
 const Product = mongoose.model("Product", productSchema);
 
 // ✅ One-time update: add archive: false to old products
