@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+
 const productSchema = new mongoose.Schema(
   {
     id: {
@@ -8,7 +9,7 @@ const productSchema = new mongoose.Schema(
     },
     name: {
       type: String,
-      required: [true, "Name is Required!"],
+      required: [true, "Name is required!"],
     },
     price: {
       type: Number,
@@ -44,14 +45,17 @@ const productSchema = new mongoose.Schema(
   }
 );
 
+// Virtual field for availability status
 productSchema.virtual("status").get(function () {
   return this.stock > 0 ? "available" : "not available";
 });
 
+// Virtual field for discounted price within a week
 productSchema.virtual("priceWithinWeek").get(function () {
-  return this.price * 0.9; // Assuming a 10% discount within a week
+  return this.price * 0.9; // 10% discount
 });
 
+// Pre hook for findOneAndDelete to ensure the product exists
 productSchema.pre("findOneAndDelete", async function (next) {
   const deletedProduct = await this.model.findOne(this.getQuery());
   if (!deletedProduct) {
@@ -60,9 +64,26 @@ productSchema.pre("findOneAndDelete", async function (next) {
   next();
 });
 
+// Static method to find archived products
 productSchema.static.archived = async function (filter) {
   return this.find(filter, { archive: true });
 };
 
 const Product = mongoose.model("Product", productSchema);
+
+// ✅ One-time update: add archive: false to old products
+(async () => {
+  try {
+    const result = await Product.updateMany(
+      { archive: { $exists: false } },
+      { archive: false }
+    );
+    console.log(
+      `✅ Archive field added to ${result.modifiedCount} existing products`
+    );
+  } catch (err) {
+    console.error("❌ Error while updating old products:", err);
+  }
+})();
+
 export default Product;
