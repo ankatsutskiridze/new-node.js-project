@@ -69,6 +69,7 @@ productSchema.pre("findOneAndDelete", async function (next) {
 productSchema.static.archived = async function (filter) {
   return this.find(filter, { archive: true });
 };
+
 productSchema.pre("findOneAndUpdate", async function (next) {
   const update = this.getUpdate();
 
