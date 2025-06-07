@@ -63,7 +63,7 @@ const getCategorieStats = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
-    const deletedProduct = await product.findOneAndDelete({
+    const deletedProduct = await product.archived({
       id: parseInt(req.params.id),
     });
     if (!deletedProduct) {
