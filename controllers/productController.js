@@ -107,6 +107,7 @@ const getPriceStatistics = async (req, res) => {
         },
       }),
     ];
+    res.json(PriceRange);
   } catch (error) {
     console.error("Error fetching price statistics:", error);
     res.status(500).json({ message: "Internal server error" });
