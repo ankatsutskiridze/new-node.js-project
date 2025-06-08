@@ -12,10 +12,14 @@ import usersRouter from "./routes/usersRouter.js";
 import logger from "./middlewares/logger.js";
 import maintenance from "./middlewares/mainctenance.js";
 import rateLimit from "express-rate-limit";
+import swaggerUI from "swagger-ui-express";
+import specs from "./middlewares/swagger.js";
 
 dotenv.config({ path: "./config.env" });
 const PORT = process.env.PORT || 3000;
 const app = express();
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(specs));
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(logger);
