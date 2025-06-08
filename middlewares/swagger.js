@@ -13,7 +13,7 @@ const options = {
       },
     ],
   },
-  apis: ["./routes/*.js"], // შეცვალე შენს ფაილებზე
+  apis: ["./swagger/*.js"], // შეცვალე შენს ფაილებზე
 };
 
 const specs = swaggerJSDoc(options);
